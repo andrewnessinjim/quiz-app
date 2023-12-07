@@ -1,0 +1,11 @@
+[
+  {
+    "question": "What makes React magical?",
+    "choices": {
+      "A": "It enables the use of HTML and CSS in web development.",
+      "B": "It enables the use of external libraries through npm.",
+      "C": "Keep the UI (in DOM) in sync with the state (held in JavaScript) automatically",
+      "D": "It secretly sprinkles fairy dust for dynamic animations."
+    }
+  }
+]
