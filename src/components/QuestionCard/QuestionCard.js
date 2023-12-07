@@ -1,11 +1,17 @@
+import PropTypes from "prop-types";
+
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { styled } from "styled-components";
 
 const StWrapper = styled.section`
   --left-align-padding: 32px;
-  --slide-amount: 24px;
+  --hovered-slide-amount: 24px;
+  --selected-slide-amount: 16px;
+  --total-slide-amount: calc(
+    var(--hovered-slide-amount) + var(--selected-slide-amount)
+  );
   max-width: 32rem;
-  border: 2px solid ${(p) => p.theme.colors.plum7};
+  border: 4px solid ${(p) => p.theme.colors.plum7};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 `;
@@ -19,8 +25,7 @@ const StQuestion = styled.p`
 `;
 
 const StChoicesWrapper = styled(RadioGroup.Root)`
-  padding: 16px;
-  padding-left: 0;
+  padding: 16px 0;
   background: ${(p) => p.theme.colors.mauve3};
   display: flex;
   flex-direction: column;
@@ -38,8 +43,8 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
   margin: 0;
   padding-top: 8px;
   padding-bottom: 8px;
-  padding-left: calc(var(--left-align-padding) + var(--slide-amount) );
-  transform: translateX(calc(-1 * var(--slide-amount)));
+  padding-left: calc(var(--left-align-padding) + var(--total-slide-amount));
+  transform: translateX(calc(-1 * var(--total-slide-amount)));
   background: ${(p) => p.theme.colors.mauve4};
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
@@ -48,15 +53,23 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
   color: ${(p) => p.theme.colors.plum12};
   transition:
     150ms background ease-in,
-    150ms transform ease-in;
+    150ms transform ease-in,
+    500ms border-radius ease-in;
 
-  &:hover, &[data-state="checked"] {
-    transform: translateX(0px);
-    background: ${(p) => p.theme.colors.plum7};
+  @media (hover: hover) {
+    &:hover {
+      transform: translateX(
+        calc((-1 * var(--total-slide-amount)) + var(--hovered-slide-amount))
+      );
+      background: ${(p) => p.theme.colors.plum7};
+    }
   }
 
   &[data-state="checked"] {
-    transform: scale(1.1);
+    transform: translateX(0px);
+    background: ${(p) => p.theme.colors.plum7};
+    border-top-right-radius: initial;
+    border-bottom-right-radius: initial;
   }
 `;
 
@@ -73,15 +86,24 @@ function QuestionCard({ question, choices }) {
           {Object.keys(choices).map((choiceKey) => {
             console.log({ choiceKey });
             return (
-              <StRadioGroupItem id={choiceKey} value={choiceKey}>
+              <StRadioGroupItem
+                id={choiceKey}
+                value={choiceKey}
+                key={choiceKey}
+              >
                 <StLabel htmlFor={choiceKey}>{choices[choiceKey]}</StLabel>
               </StRadioGroupItem>
-            )
+            );
           })}
         </StChoicesWrapper>
       </form>
-    </StWrapper >
+    </StWrapper>
   );
 }
+
+QuestionCard.propTypes = {
+  question: PropTypes.string,
+  choices: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default QuestionCard;

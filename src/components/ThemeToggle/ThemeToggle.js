@@ -1,10 +1,16 @@
+import PropTypes from "prop-types";
+import React from "react";
 import { styled } from "styled-components";
+
+import { AppThemeContext } from "../AppThemeProvider";
 
 const Wrapper = styled.div``;
 const StLabel = styled.label`
   color: ${(p) => p.theme.colors.plum12};
 `;
-function ThemeToggle({ isDarkTheme, setIsDarkTheme }) {
+function ThemeToggle() {
+  const { isDarkTheme, setIsDarkTheme } = React.useContext(AppThemeContext);
+
   return (
     <Wrapper>
       <input
@@ -18,4 +24,8 @@ function ThemeToggle({ isDarkTheme, setIsDarkTheme }) {
   );
 }
 
+ThemeToggle.propTypes = {
+  isDarkTheme: PropTypes.bool,
+  setIsDarkTheme: PropTypes.func,
+};
 export default ThemeToggle;
