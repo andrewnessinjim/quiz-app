@@ -16,15 +16,10 @@ const StProgressIndicator = styled(Progress.Indicator)`
 `;
 
 const StProgressSegment = styled.div`
-  --fill-color: ${(p) => p.theme.colors.plum11};
-  --empty-color: white;
-  --border-radius: 6px;
-  --border: 2px solid ${(p) => p.theme.colors.plum11};
-
   flex: 1;
   height: 12px;
-  border-radius: var(--border-radius);
-  border: var(--border);
+  border-radius: 6px;
+  border: 2px solid ${(p) => p.theme.colors.plum11};
   position: relative;
   overflow: clip;
 
