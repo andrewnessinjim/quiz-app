@@ -46,15 +46,15 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
   padding-left: calc(var(--left-align-padding) + var(--total-slide-amount));
   transform: translateX(calc(-1 * var(--total-slide-amount)));
   background: ${(p) => p.theme.colors.mauve4};
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
   transition: 250ms transform;
   cursor: pointer;
   color: ${(p) => p.theme.colors.plum12};
   transition:
     150ms background ease-in,
     150ms transform ease-in,
-    500ms border-radius ease-in;
+    250ms border-radius ease-in;
 
   @media (hover: hover) {
     &:hover {
