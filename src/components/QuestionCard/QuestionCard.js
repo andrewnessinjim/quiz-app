@@ -2,8 +2,15 @@ import PropTypes from "prop-types";
 
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { styled } from "styled-components";
+import SiteWidthWrapper from "../SiteWidthWrapper";
 
 const StWrapper = styled.section`
+  ${SiteWidthWrapper};
+  display: flex;
+  justify-content: center;
+`;
+
+const StCard = styled.section`
   --left-align-padding: 32px;
   --hovered-slide-amount: 24px;
   --selected-slide-amount: 16px;
@@ -80,23 +87,25 @@ const StLabel = styled.label`
 function QuestionCard({ question, choices }) {
   return (
     <StWrapper>
-      <StQuestion>{question}</StQuestion>
-      <form>
-        <StChoicesWrapper>
-          {Object.keys(choices).map((choiceKey) => {
-            console.log({ choiceKey });
-            return (
-              <StRadioGroupItem
-                id={choiceKey}
-                value={choiceKey}
-                key={choiceKey}
-              >
-                <StLabel htmlFor={choiceKey}>{choices[choiceKey]}</StLabel>
-              </StRadioGroupItem>
-            );
-          })}
-        </StChoicesWrapper>
-      </form>
+      <StCard>
+        <StQuestion>{question}</StQuestion>
+        <form>
+          <StChoicesWrapper>
+            {Object.keys(choices).map((choiceKey) => {
+              console.log({ choiceKey });
+              return (
+                <StRadioGroupItem
+                  id={choiceKey}
+                  value={choiceKey}
+                  key={choiceKey}
+                >
+                  <StLabel htmlFor={choiceKey}>{choices[choiceKey]}</StLabel>
+                </StRadioGroupItem>
+              );
+            })}
+          </StChoicesWrapper>
+        </form>
+      </StCard>
     </StWrapper>
   );
 }

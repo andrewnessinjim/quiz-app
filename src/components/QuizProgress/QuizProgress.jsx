@@ -2,7 +2,13 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import * as _ from "lodash";
 import * as Progress from "@radix-ui/react-progress";
+import SiteWidthWrapper from "../SiteWidthWrapper";
 
+const Wrapper = styled.section`
+  ${SiteWidthWrapper};
+  display: flex;
+  justify-content: center;
+`;
 const StProgressRoot = styled(Progress.Root)`
   margin-top: 16px;
   width: 100%;
@@ -36,15 +42,16 @@ const StProgressSegment = styled.div`
 `;
 
 function QuizProgress({ total, completed }) {
-  console.log({ completed });
   return (
-    <StProgressRoot value={completed} max={total}>
-      <StProgressIndicator>
-        {_.range(total).map((num) => (
-          <StProgressSegment $isCompleted={num < completed} key={num} />
-        ))}
-      </StProgressIndicator>
-    </StProgressRoot>
+    <Wrapper>
+      <StProgressRoot value={completed} max={total}>
+        <StProgressIndicator>
+          {_.range(total).map((num) => (
+            <StProgressSegment $isCompleted={num < completed} key={num} />
+          ))}
+        </StProgressIndicator>
+      </StProgressRoot>
+    </Wrapper>
   );
 }
 

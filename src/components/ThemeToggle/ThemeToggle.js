@@ -14,7 +14,6 @@ const StToggleRoot = styled(Toggle.Root)`
   padding: 4px;
   background-color: ${(p) => p.theme.colors.mauve4};
   position: relative;
-  margin-bottom: 32px;
 `;
 
 const IconsContainer = styled.div`

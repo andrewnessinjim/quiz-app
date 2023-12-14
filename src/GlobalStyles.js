@@ -32,10 +32,6 @@ const GlobalStyles = createGlobalStyle`
         font-family: "Segoe UI", sans-serif;
         background-color: ${(p) => p.theme.colors.plum1};
         color: ${(p) => p.theme.colors.plum11};
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
     html, body {

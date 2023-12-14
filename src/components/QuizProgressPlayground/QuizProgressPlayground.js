@@ -2,9 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import QuizProgress from "../QuizProgress";
 
-const Wrapper = styled.div`
-  padding: 32px;
-`;
+const Wrapper = styled.div``;
 
 const NumInputWrapper = styled.div``;
 
