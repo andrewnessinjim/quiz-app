@@ -92,7 +92,6 @@ function QuestionCard({ question, choices }) {
         <form>
           <StChoicesWrapper>
             {Object.keys(choices).map((choiceKey) => {
-              console.log({ choiceKey });
               return (
                 <StRadioGroupItem
                   id={choiceKey}
@@ -112,7 +111,7 @@ function QuestionCard({ question, choices }) {
 
 QuestionCard.propTypes = {
   question: PropTypes.string,
-  choices: PropTypes.arrayOf(PropTypes.object),
+  choices: PropTypes.object,
 };
 
 export default QuestionCard;
