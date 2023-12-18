@@ -32,6 +32,9 @@ function AppThemeProvider({ children }) {
 }
 
 AppThemeProvider.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ]),
 };
 export default AppThemeProvider;

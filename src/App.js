@@ -9,12 +9,10 @@ import QuizProgress from "./components/QuizProgress";
 export default function App() {
   return (
     <AppThemeProvider>
-      <div>
-        <Header />
-        <QuestionCard question={data[0].question} choices={data[0].choices} />
-        <QuizProgress total={10} completed={2} />
-        <GlobalStyles />
-      </div>
+      <Header />
+      <QuestionCard question={data[0].question} choices={data[0].choices} />
+      <QuizProgress total={10} completed={2} />
+      <GlobalStyles />
     </AppThemeProvider>
   );
 }
