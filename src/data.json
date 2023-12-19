@@ -1,6 +1,27 @@
 [
   {
-    "question": "What makes React magical?",
+    "id": 1,
+    "question": "1 What makes React magical?",
+    "choices": {
+      "A": "It enables the use of HTML and CSS in web development.",
+      "B": "It enables the use of external libraries through npm.",
+      "C": "It keeps the UI (in DOM) in sync with the state (held in JavaScript) automatically.",
+      "D": "It secretly sprinkles fairy dust for dynamic animations."
+    }
+  },
+  {
+    "id": 2,
+    "question": "2 What makes React magical?",
+    "choices": {
+      "A": "It enables the use of HTML and CSS in web development.",
+      "B": "It enables the use of external libraries through npm.",
+      "C": "It keeps the UI (in DOM) in sync with the state (held in JavaScript) automatically.",
+      "D": "It secretly sprinkles fairy dust for dynamic animations."
+    }
+  },
+  {
+    "id": 3,
+    "question": "3 What makes React magical?",
     "choices": {
       "A": "It enables the use of HTML and CSS in web development.",
       "B": "It enables the use of external libraries through npm.",

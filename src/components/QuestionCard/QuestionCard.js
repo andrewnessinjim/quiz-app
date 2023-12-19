@@ -2,21 +2,16 @@ import PropTypes from "prop-types";
 
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { styled } from "styled-components";
-import SiteWidthWrapper from "../SiteWidthWrapper";
+import React from "react";
 
 const StWrapper = styled.section`
-  ${SiteWidthWrapper};
-  display: flex;
-  justify-content: center;
-`;
-
-const StCard = styled.section`
   --left-align-padding: 32px;
   --hovered-slide-amount: 24px;
   --selected-slide-amount: 16px;
   --total-slide-amount: calc(
     var(--hovered-slide-amount) + var(--selected-slide-amount)
   );
+  width: 90vw;
   max-width: 32rem;
   border: 4px solid ${(p) => p.theme.colors.plum7};
   border-top-left-radius: 10px;
@@ -58,9 +53,7 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
   transition: 250ms transform;
   cursor: pointer;
   color: ${(p) => p.theme.colors.plum12};
-  transition:
-    150ms background ease-in,
-    150ms transform ease-in,
+  transition: 150ms background ease-in, 150ms transform ease-in,
     250ms border-radius ease-in;
 
   @media (hover: hover) {
@@ -85,26 +78,27 @@ const StLabel = styled.label`
 `;
 
 function QuestionCard({ question, choices }) {
+  const choiceRadioPrefixId = React.useId();
   return (
     <StWrapper>
-      <StCard>
-        <StQuestion>{question}</StQuestion>
-        <form>
-          <StChoicesWrapper>
-            {Object.keys(choices).map((choiceKey) => {
-              return (
-                <StRadioGroupItem
-                  id={choiceKey}
-                  value={choiceKey}
-                  key={choiceKey}
-                >
-                  <StLabel htmlFor={choiceKey}>{choices[choiceKey]}</StLabel>
-                </StRadioGroupItem>
-              );
-            })}
-          </StChoicesWrapper>
-        </form>
-      </StCard>
+      <StQuestion>{question}</StQuestion>
+      <form>
+        <StChoicesWrapper>
+          {Object.keys(choices).map((choiceKey) => {
+            return (
+              <StRadioGroupItem
+                id={`${choiceRadioPrefixId}-${choiceKey}`}
+                value={choiceKey}
+                key={choiceKey}
+              >
+                <StLabel htmlFor={`${choiceRadioPrefixId}-${choiceKey}`}>
+                  {choices[choiceKey]}
+                </StLabel>
+              </StRadioGroupItem>
+            );
+          })}
+        </StChoicesWrapper>
+      </form>
     </StWrapper>
   );
 }
