@@ -13,8 +13,8 @@ const Wrapper = styled.section`
 `;
 
 const CardsScroller = styled.section`
-  width: 90vw;
-  max-width: 32rem;
+  width: var(--question-card-width);
+  max-width: var(--question-card-max-width);
   overflow-x: clip;
 `;
 const CardsContainer = styled.section`
@@ -51,8 +51,12 @@ const StNavButton = styled.button`
 function QuestionCards() {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
 
-  const translateXIfMaxWidth = `${currentQuestion * -1 * 90}vw`;
-  const translateXIfLessThanMaxWidth = `${currentQuestion * -1 * 32}rem`;
+  const translateXIfMaxWidth = `calc(${
+    currentQuestion * -1
+  } * var(--question-card-width))`;
+  const translateXIfLessThanMaxWidth = `calc(${
+    currentQuestion * -1
+  } * var(--question-card-max-width))`;
   const translateXAmount = `max(${translateXIfMaxWidth},${translateXIfLessThanMaxWidth})`;
 
   return (

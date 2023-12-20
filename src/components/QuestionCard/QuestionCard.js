@@ -11,8 +11,8 @@ const StWrapper = styled.section`
   --total-slide-amount: calc(
     var(--hovered-slide-amount) + var(--selected-slide-amount)
   );
-  width: 90vw;
-  max-width: 32rem;
+  width: var(--question-card-width);
+  max-width: var(--question-card-max-width);
   border: 4px solid ${(p) => p.theme.colors.plum7};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;

@@ -37,6 +37,11 @@ const GlobalStyles = createGlobalStyle`
     html, body {
         height: 100%;
     }
+
+    html {
+        --question-card-width: 90vw;
+        --question-card-max-width: 32rem;
+    }
 `;
 
 export default GlobalStyles;
