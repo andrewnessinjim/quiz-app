@@ -77,13 +77,15 @@ const StLabel = styled.label`
   cursor: pointer;
 `;
 
-function QuestionCard({ question, choices }) {
+function QuestionCard({ question, choices, onAnswerSelect }) {
   const choiceRadioPrefixId = React.useId();
   return (
     <StWrapper>
       <StQuestion>{question}</StQuestion>
       <form>
-        <StChoicesWrapper>
+        <StChoicesWrapper
+          onValueChange={(selectedValue) => onAnswerSelect(selectedValue)}
+        >
           {Object.keys(choices).map((choiceKey) => {
             return (
               <StRadioGroupItem
@@ -106,6 +108,7 @@ function QuestionCard({ question, choices }) {
 QuestionCard.propTypes = {
   question: PropTypes.string,
   choices: PropTypes.object,
+  onAnswerSelect: PropTypes.func,
 };
 
 export default QuestionCard;

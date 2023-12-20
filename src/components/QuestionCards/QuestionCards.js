@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import QuestionCard from "../QuestionCard/QuestionCard";
-import data from "../../data";
+
 import React from "react";
 import SiteWidthWrapper from "../SiteWidthWrapper";
 
@@ -48,7 +49,7 @@ const StNavButton = styled.button`
   }
 `;
 
-function QuestionCards() {
+function QuestionCards({ data, onAnswerSelect }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
 
   const translateXIfMaxWidth = `calc(${
@@ -63,11 +64,14 @@ function QuestionCards() {
     <Wrapper>
       <CardsScroller>
         <CardsContainer style={{ "--translateXAmount": translateXAmount }}>
-          {data.map((questionData) => (
+          {data.map((questionData, questionIndex) => (
             <QuestionCard
               key={questionData.id}
               question={questionData.question}
               choices={questionData.choices}
+              onAnswerSelect={(selectedAnswer) =>
+                onAnswerSelect(questionIndex, selectedAnswer)
+              }
             />
           ))}
         </CardsContainer>
@@ -89,5 +93,10 @@ function QuestionCards() {
     </Wrapper>
   );
 }
+
+QuestionCards.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  onAnswerSelect: PropTypes.func,
+};
 
 export default QuestionCards;
