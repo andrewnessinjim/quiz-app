@@ -5,6 +5,7 @@ import QuestionCard from "../QuestionCard/QuestionCard";
 
 import React from "react";
 import SiteWidthWrapper from "../SiteWidthWrapper";
+import StButton from "../StButton/StButton";
 
 const Wrapper = styled.section`
   ${SiteWidthWrapper};
@@ -29,24 +30,6 @@ const NavContainer = styled.div`
   margin-top: 16px;
   display: flex;
   gap: 8px;
-`;
-
-const StNavButton = styled.button`
-  padding: 4px 16px;
-  width: 124px;
-  color: ${({ theme }) => theme.colors.mauve12};
-  border-radius: 10px;
-  border: none;
-  background: ${({ theme }) => theme.colors.plum7};
-  cursor: pointer;
-
-  &[disabled] {
-    opacity: 0.75;
-  }
-
-  &[disabled]:hover {
-    cursor: not-allowed;
-  }
 `;
 
 function QuestionCards({ data, onAnswerSelect }) {
@@ -77,18 +60,18 @@ function QuestionCards({ data, onAnswerSelect }) {
         </CardsContainer>
       </CardsScroller>
       <NavContainer>
-        <StNavButton
+        <StButton
           disabled={currentQuestion === 0}
           onClick={() => setCurrentQuestion(currentQuestion - 1)}
         >
           Previous
-        </StNavButton>
-        <StNavButton
+        </StButton>
+        <StButton
           disabled={currentQuestion === data.length - 1}
           onClick={() => setCurrentQuestion(currentQuestion + 1)}
         >
           Next
-        </StNavButton>
+        </StButton>
       </NavContainer>
     </Wrapper>
   );

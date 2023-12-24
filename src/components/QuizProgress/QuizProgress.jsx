@@ -2,19 +2,16 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import * as _ from "lodash";
 import * as Progress from "@radix-ui/react-progress";
-import SiteWidthWrapper from "../SiteWidthWrapper";
 import React from "react";
 
 const Wrapper = styled.section`
-  ${SiteWidthWrapper};
   display: flex;
-  justify-content:center;
+  justify-content: center;
+  width: 100%;
 `;
 
 const StProgressRoot = styled(Progress.Root)`
-  margin-top: 16px;
   width: 100%;
-  max-width: 32rem;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -41,21 +38,21 @@ const StProgressSegment = styled.div`
     inset: 0;
     background: ${(p) => p.theme.colors.plum11};
     transform: ${(p) =>
-    p.$isCompleted ? "translateX(0)" : "translateX(-100%)"};
+      p.$isCompleted ? "translateX(0)" : "translateX(-100%)"};
     transition: 150ms transform ease-in;
   }
 `;
 
-const StLabel = styled.label`
-  
-`;
+const StLabel = styled.label``;
 
 function QuizProgress({ total, completed }) {
   const progressBarId = React.useId("quiz-progress-bar");
   return (
     <Wrapper>
       <StProgressRoot value={completed} max={total} id={progressBarId}>
-        <StLabel htmlFor={progressBarId}>{completed} / {total} Completed</StLabel>
+        <StLabel htmlFor={progressBarId}>
+          {completed} / {total} Completed
+        </StLabel>
         <StProgressIndicator>
           {_.range(total).map((num) => (
             <StProgressSegment $isCompleted={num < completed} key={num} />
