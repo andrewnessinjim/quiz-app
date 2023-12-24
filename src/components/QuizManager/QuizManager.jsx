@@ -33,6 +33,8 @@ function QuizManager() {
     new Array(data.length).fill(null)
   );
 
+  const [quizSubmitted, setQuizSubmitted] = React.useState(false);
+
   const completedCount = providedAnswers.filter((answer) => answer !== null).length;
 
   function onAnswerSelect(questionIndex, selectedAnswer) {
@@ -48,7 +50,9 @@ function QuizManager() {
       if(providedAnswer === correctAnswers[index]) {
         score++;
       }
-    })
+    });
+
+    setQuizSubmitted(true);
     console.log({ score })
   }
 
@@ -59,7 +63,7 @@ function QuizManager() {
         <QuizProgress total={data.length} completed={completedCount} />
         <StSubmitButton
           onClick={onSubmit}
-          disabled={completedCount < data.length}>
+          disabled={completedCount < data.length || quizSubmitted}>
             Submit
         </StSubmitButton>
       </StProgessContainer>
