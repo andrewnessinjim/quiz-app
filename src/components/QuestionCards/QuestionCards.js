@@ -4,11 +4,9 @@ import PropTypes from "prop-types";
 import QuestionCard from "../QuestionCard/QuestionCard";
 
 import React from "react";
-import SiteWidthWrapper from "../SiteWidthWrapper";
 import StButton from "../StButton/StButton";
 
 const Wrapper = styled.section`
-  ${SiteWidthWrapper};
   display: flex;
   align-items: center;
   flex-direction: column;
