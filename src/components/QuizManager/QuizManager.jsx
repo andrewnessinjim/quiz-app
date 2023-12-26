@@ -57,6 +57,8 @@ function QuizManager({onReset}) {
   const providedAnswersCount = providedAnswers.filter((answer) => answer !== null).length;
   const [score, setScore] = React.useState(0);
 
+  const isReadyForSubmission = numQuestions === providedAnswersCount;
+
   function onAnswerSelect(questionIndex, selectedAnswer) {
     const nextAnswers = [...providedAnswers];
     nextAnswers[questionIndex] = selectedAnswer;
@@ -79,15 +81,15 @@ function QuizManager({onReset}) {
 
   return (
     <Wrapper>
-      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} quizSubmitted={quizSubmitted} />
       <StProgessContainer>
         <QuizProgress total={data.length} completed={providedAnswersCount} />
-        <StSubmitButton
-          onClick={onSubmit}
-          disabled={providedAnswersCount < data.length || quizSubmitted}>
-            Submit
-        </StSubmitButton>
       </StProgessContainer>
+      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} quizSubmitted={quizSubmitted} />
+      {isReadyForSubmission && !quizSubmitted &&
+        <StSubmitButton
+          onClick={onSubmit}>
+            Submit
+        </StSubmitButton>}
       { quizSubmitted &&
           <StQuizStatus>
             {`You scored ${score}/${numQuestions}`}

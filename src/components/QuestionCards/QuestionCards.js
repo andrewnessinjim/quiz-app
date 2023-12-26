@@ -61,12 +61,14 @@ function QuestionCards({ data, onAnswerSelect, quizSubmitted }) {
       </CardsScroller>
       <NavContainer>
         <StButton
+          $style="secondary"
           disabled={currentQuestion === 0 || quizSubmitted}
           onClick={() => setCurrentQuestion(currentQuestion - 1)}
         >
           Previous
         </StButton>
         <StButton
+          $style="secondary"
           disabled={currentQuestion === data.length - 1 || quizSubmitted}
           onClick={() => setCurrentQuestion(currentQuestion + 1)}
         >
