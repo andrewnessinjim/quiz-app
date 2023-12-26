@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import QuizProgress from "../QuizProgress";
 import QuestionCards from "../QuestionCards";
 
 import data from "../../data";
-import styled from "styled-components";
 import SiteWidthWrapper from "../SiteWidthWrapper";
 import StButton from "../StButton/StButton";
 
@@ -14,7 +15,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 48px;
 `;
 
 const StProgessContainer = styled.div`
@@ -28,14 +29,33 @@ const StSubmitButton = styled(StButton)`
   justify-self: center;
 `;
 
-function QuizManager() {
+const StQuizStatus = styled.div`
+  @keyframes zoom-out-in {
+    from {
+      transform: scale(2);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  animation-name: zoom-out-in;
+  animation-duration: 500ms;
+`;
+
+function QuizManager({onReset}) {
+  const numQuestions = data.length;
   const [providedAnswers, setProvidedAnswers] = React.useState(
-    new Array(data.length).fill(null)
+    new Array(numQuestions).fill(null)
   );
 
   const [quizSubmitted, setQuizSubmitted] = React.useState(false);
 
-  const completedCount = providedAnswers.filter((answer) => answer !== null).length;
+  const providedAnswersCount = providedAnswers.filter((answer) => answer !== null).length;
+  const [score, setScore] = React.useState(0);
 
   function onAnswerSelect(questionIndex, selectedAnswer) {
     const nextAnswers = [...providedAnswers];
@@ -53,22 +73,33 @@ function QuizManager() {
     });
 
     setQuizSubmitted(true);
+    setScore(score);
     console.log({ score })
   }
 
   return (
     <Wrapper>
-      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} />
+      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} quizSubmitted={quizSubmitted} />
       <StProgessContainer>
-        <QuizProgress total={data.length} completed={completedCount} />
+        <QuizProgress total={data.length} completed={providedAnswersCount} />
         <StSubmitButton
           onClick={onSubmit}
-          disabled={completedCount < data.length || quizSubmitted}>
+          disabled={providedAnswersCount < data.length || quizSubmitted}>
             Submit
         </StSubmitButton>
       </StProgessContainer>
+      { quizSubmitted &&
+          <StQuizStatus>
+            {`You scored ${score}/${numQuestions}`}
+            <StButton onClick={onReset}>Retry</StButton>
+          </StQuizStatus>
+      }
     </Wrapper>
   );
+}
+
+QuizManager.propTypes = {
+  onReset: PropTypes.func
 }
 
 export default QuizManager;

@@ -32,7 +32,7 @@ const NavContainer = styled.div`
   gap: 8px;
 `;
 
-function QuestionCards({ data, onAnswerSelect }) {
+function QuestionCards({ data, onAnswerSelect, quizSubmitted }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
 
   const translateXIfMaxWidth = `calc(${
@@ -61,13 +61,13 @@ function QuestionCards({ data, onAnswerSelect }) {
       </CardsScroller>
       <NavContainer>
         <StButton
-          disabled={currentQuestion === 0}
+          disabled={currentQuestion === 0 || quizSubmitted}
           onClick={() => setCurrentQuestion(currentQuestion - 1)}
         >
           Previous
         </StButton>
         <StButton
-          disabled={currentQuestion === data.length - 1}
+          disabled={currentQuestion === data.length - 1 || quizSubmitted}
           onClick={() => setCurrentQuestion(currentQuestion + 1)}
         >
           Next
@@ -80,6 +80,7 @@ function QuestionCards({ data, onAnswerSelect }) {
 QuestionCards.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   onAnswerSelect: PropTypes.func,
+  quizSubmitted: PropTypes.bool
 };
 
 export default QuestionCards;
