@@ -11,7 +11,6 @@ const Wrapper = styled.section`
 `;
 
 const StProgressRoot = styled(Progress.Root)`
-  margin-top: 16px;
   width: 100%;
   display: flex;
   flex-direction: column;

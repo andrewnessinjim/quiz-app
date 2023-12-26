@@ -1,10 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import QuizProgress from "../QuizProgress";
 import QuestionCards from "../QuestionCards";
 
 import data from "../../data";
-import styled from "styled-components";
 import SiteWidthWrapper from "../SiteWidthWrapper";
 import StButton from "../StButton/StButton";
 
@@ -14,40 +15,93 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 48px;
 `;
 
 const StProgessContainer = styled.div`
   width: 100%;
   max-width: 32rem;
   display: flex;
+  gap: 16px;
 `;
 
 const StSubmitButton = styled(StButton)`
   justify-self: center;
 `;
 
-function QuizManager() {
-  const [answers, setAnswers] = React.useState(
-    new Array(data.length).fill(null)
+const StQuizStatus = styled.div`
+  @keyframes zoom-out-in {
+    from {
+      transform: scale(2);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  animation-name: zoom-out-in;
+  animation-duration: 500ms;
+`;
+
+function QuizManager({onReset}) {
+  const numQuestions = data.length;
+  const [providedAnswers, setProvidedAnswers] = React.useState(
+    new Array(numQuestions).fill(null)
   );
 
-  console.log({ answers });
-  const completedCount = answers.filter((answer) => answer !== null).length;
+  const [quizSubmitted, setQuizSubmitted] = React.useState(false);
+
+  const providedAnswersCount = providedAnswers.filter((answer) => answer !== null).length;
+  const [score, setScore] = React.useState(0);
+
+  const isReadyForSubmission = numQuestions === providedAnswersCount;
 
   function onAnswerSelect(questionIndex, selectedAnswer) {
-    const nextAnswers = [...answers];
+    const nextAnswers = [...providedAnswers];
     nextAnswers[questionIndex] = selectedAnswer;
-    setAnswers(nextAnswers);
+    setProvidedAnswers(nextAnswers);
   }
+
+  function onSubmit() {
+    const correctAnswers = data.map(question => question.correctAnswer);
+    let score = 0;
+    providedAnswers.forEach((providedAnswer, index) => {
+      if(providedAnswer === correctAnswers[index]) {
+        score++;
+      }
+    });
+
+    setQuizSubmitted(true);
+    setScore(score);
+    console.log({ score })
+  }
+
   return (
     <Wrapper>
-      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} />
       <StProgessContainer>
-        <QuizProgress total={data.length} completed={completedCount} />
-        <StSubmitButton>Submit</StSubmitButton>
+        <QuizProgress total={data.length} completed={providedAnswersCount} />
       </StProgessContainer>
+      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} quizSubmitted={quizSubmitted} />
+      {isReadyForSubmission && !quizSubmitted &&
+        <StSubmitButton
+          onClick={onSubmit}>
+            Submit
+        </StSubmitButton>}
+      { quizSubmitted &&
+          <StQuizStatus>
+            {`You scored ${score}/${numQuestions}`}
+            <StButton onClick={onReset}>Retry</StButton>
+          </StQuizStatus>
+      }
     </Wrapper>
   );
+}
+
+QuizManager.propTypes = {
+  onReset: PropTypes.func
 }
 
 export default QuizManager;

@@ -4,11 +4,9 @@ import PropTypes from "prop-types";
 import QuestionCard from "../QuestionCard/QuestionCard";
 
 import React from "react";
-import SiteWidthWrapper from "../SiteWidthWrapper";
 import StButton from "../StButton/StButton";
 
 const Wrapper = styled.section`
-  ${SiteWidthWrapper};
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -32,7 +30,7 @@ const NavContainer = styled.div`
   gap: 8px;
 `;
 
-function QuestionCards({ data, onAnswerSelect }) {
+function QuestionCards({ data, onAnswerSelect, quizSubmitted }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
 
   const translateXIfMaxWidth = `calc(${
@@ -61,13 +59,15 @@ function QuestionCards({ data, onAnswerSelect }) {
       </CardsScroller>
       <NavContainer>
         <StButton
-          disabled={currentQuestion === 0}
+          $style="secondary"
+          disabled={currentQuestion === 0 || quizSubmitted}
           onClick={() => setCurrentQuestion(currentQuestion - 1)}
         >
           Previous
         </StButton>
         <StButton
-          disabled={currentQuestion === data.length - 1}
+          $style="secondary"
+          disabled={currentQuestion === data.length - 1 || quizSubmitted}
           onClick={() => setCurrentQuestion(currentQuestion + 1)}
         >
           Next
@@ -80,6 +80,7 @@ function QuestionCards({ data, onAnswerSelect }) {
 QuestionCards.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   onAnswerSelect: PropTypes.func,
+  quizSubmitted: PropTypes.bool
 };
 
 export default QuestionCards;
