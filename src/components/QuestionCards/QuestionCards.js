@@ -17,11 +17,13 @@ const CardsScroller = styled.section`
   max-width: var(--question-card-max-width);
   overflow-x: clip;
 `;
+
 const CardsContainer = styled.section`
   display: flex;
   width: max-content;
   transform: translateX(var(--translateXAmount));
   transition: 250ms transform ease-in;
+  align-items: start;
 `;
 
 const NavContainer = styled.div`
