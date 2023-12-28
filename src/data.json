@@ -1,34 +1,45 @@
 [
   {
     "id": 1,
-    "question": "1 What makes React magical?",
+    "question": "What makes React magical?",
     "choices": {
       "A": "It enables the use of HTML and CSS in web development.",
       "B": "It enables the use of external libraries through npm.",
       "C": "It keeps the UI (in DOM) in sync with the state (held in JavaScript) automatically.",
       "D": "It secretly sprinkles fairy dust for dynamic animations."
     },
-    "correctAnswer": "A"
+    "correctAnswer": "C"
   },
   {
     "id": 2,
-    "question": "2 What makes React magical?",
+    "question": "What does DOM stand for?",
     "choices": {
-      "A": "It enables the use of HTML and CSS in web development.",
-      "B": "It enables the use of external libraries through npm.",
-      "C": "It keeps the UI (in DOM) in sync with the state (held in JavaScript) automatically.",
-      "D": "It secretly sprinkles fairy dust for dynamic animations."
+      "A": "Data Object Model",
+      "B": "Document Object Model",
+      "C": "Dynamic Operation Module",
+      "D": "Donut Obliteration Machine"
     },
     "correctAnswer": "B"
   },
   {
     "id": 3,
-    "question": "3 What makes React magical?",
+    "question": "Why is it recommended to use \"on X\" attributes on React elements instead of addEventListener callbacks?",
     "choices": {
-      "A": "It enables the use of HTML and CSS in web development.",
-      "B": "It enables the use of external libraries through npm.",
-      "C": "It keeps the UI (in DOM) in sync with the state (held in JavaScript) automatically.",
-      "D": "It secretly sprinkles fairy dust for dynamic animations."
+      "A": "To adhere to React's abstraction principle, discouraging direct manipulation of the DOM.",
+      "B": "Because addEventListener behaves unpreditably in React.",
+      "C": "Because addEventListener is disabled in React by default.",
+      "D": "To maintain the balance of the React cosmos and prevent a DOM rebellion"
+    },
+    "correctAnswer": "A"
+  },
+  {
+    "id": 4,
+    "question": "For whom do we write code?",
+    "choices": {
+      "A": "For the computer.",
+      "B": "For our future-selves and other developers.",
+      "C": "For the computer, our future-selves and other developers.",
+      "D": "For the elusive alien civilization that will one day stumble upon our code and either be impressed or highly confused."
     },
     "correctAnswer": "C"
   }
