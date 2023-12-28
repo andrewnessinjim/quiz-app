@@ -22,8 +22,10 @@ const CardsContainer = styled.section`
   display: flex;
   width: max-content;
   transform: translateX(var(--translateXAmount));
-  transition: 250ms transform ease-in;
+  transition: 500ms transform cubic-bezier(.6,.32,0,.86);
   align-items: start;
+  --gap-between-cards: 128px;
+  gap: var(--gap-between-cards);
 `;
 
 const NavContainer = styled.div`
@@ -35,13 +37,16 @@ const NavContainer = styled.div`
 function QuestionCards({ data, onAnswerSelect, quizSubmitted }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
 
-  const translateXIfMaxWidth = `calc(${
+  const translateXWhenCardIsLessThanMaxWidth = `calc(${
     currentQuestion * -1
-  } * var(--question-card-width))`;
-  const translateXIfLessThanMaxWidth = `calc(${
+  }  * (var(--question-card-width) + var(--gap-between-cards)))`;
+  const translateXWhenCardIsMaxWidth = `calc(${
     currentQuestion * -1
-  } * var(--question-card-max-width))`;
-  const translateXAmount = `max(${translateXIfMaxWidth},${translateXIfLessThanMaxWidth})`;
+  }  * (var(--question-card-max-width) + var(--gap-between-cards)))`;
+
+  // Actual translate amount should be the minimum of these two,
+  // but since we need negative translate values, max does the job instead.
+  const translateXAmount = `max(${translateXWhenCardIsLessThanMaxWidth},${translateXWhenCardIsMaxWidth})`;
 
   return (
     <Wrapper>
