@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import QuizProgress from "../QuizProgress";
-import QuestionCards from "../QuestionCards";
+import DiscreteProgress from "../DiscreteProgress";
+import QuizNavigator from "../QuizNavigator";
 
-import data from "../../data";
+import questionsData from "../../data";
 import SiteWidthWrapper from "../SiteWidthWrapper";
 import StButton from "../StButton/StButton";
 
@@ -47,7 +47,7 @@ const StQuizStatus = styled.div`
 `;
 
 function QuizManager({onReset}) {
-  const numQuestions = data.length;
+  const numQuestions = questionsData.length;
   const [providedAnswers, setProvidedAnswers] = React.useState(
     new Array(numQuestions).fill(null)
   );
@@ -59,14 +59,14 @@ function QuizManager({onReset}) {
 
   const isReadyForSubmission = numQuestions === providedAnswersCount;
 
-  function onAnswerSelect(questionIndex, selectedAnswer) {
+  function onAnswerPick(questionIndex, selectedAnswer) {
     const nextAnswers = [...providedAnswers];
     nextAnswers[questionIndex] = selectedAnswer;
     setProvidedAnswers(nextAnswers);
   }
 
   function onSubmit() {
-    const correctAnswers = data.map(question => question.correctAnswer);
+    const correctAnswers = questionsData.map(question => question.correctAnswer);
     let score = 0;
     providedAnswers.forEach((providedAnswer, index) => {
       if(providedAnswer === correctAnswers[index]) {
@@ -82,9 +82,12 @@ function QuizManager({onReset}) {
   return (
     <Wrapper>
       <StProgessContainer>
-        <QuizProgress total={data.length} completed={providedAnswersCount} />
+        <DiscreteProgress total={questionsData.length} completed={providedAnswersCount} />
       </StProgessContainer>
-      <QuestionCards data={data} onAnswerSelect={onAnswerSelect} quizSubmitted={quizSubmitted} />
+      <QuizNavigator
+        questionsData={questionsData}
+        onAnswerPick={onAnswerPick}
+        disableNav={quizSubmitted} />
       {isReadyForSubmission && !quizSubmitted &&
         <StSubmitButton
           onClick={onSubmit}>
