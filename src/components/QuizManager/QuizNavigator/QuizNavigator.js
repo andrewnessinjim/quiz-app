@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import AnswerPicker from "../AnswerPicker/AnswerPicker";
+import AnswerPicker from "../AnswerPicker";
 
 import React from "react";
-import StButton from "../StButton/StButton";
+import StButton from "../../StButton/StButton";
 
 const Wrapper = styled.section`
   display: flex;

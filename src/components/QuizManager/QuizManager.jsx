@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import DiscreteProgress from "../DiscreteProgress";
-import QuizNavigator from "../QuizNavigator";
+import QuizNavigator from "./QuizNavigator";
 
 import questionsData from "../../data";
 import SiteWidthWrapper from "../SiteWidthWrapper";
