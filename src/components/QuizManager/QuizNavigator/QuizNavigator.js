@@ -36,7 +36,7 @@ const NavContainer = styled.div`
 
 function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
-
+  // API call or DB call <-- data
   const translateXWhenCardIsLessThanMaxWidth = `calc(${
     currentQuestion * -1
   }  * (var(--question-card-width) + var(--gap-between-cards)))`;

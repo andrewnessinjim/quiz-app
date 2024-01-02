@@ -3,13 +3,14 @@ import AppThemeProvider from "./components/AppThemeProvider";
 import GlobalStyles from "./GlobalStyles";
 import React from "react";
 import Header from "./components/Header";
-import QuizResetController from "./components/QuizResetController";
+import ResetController from "./components/ResetController/ResetController";
+import QuizManager from "./components/QuizManager";
 
 export default function App() {
   return (
     <AppThemeProvider>
       <Header />
-      <QuizResetController />
+      <ResetController ControlledComponent={QuizManager}/>
       <GlobalStyles />
     </AppThemeProvider>
   );
