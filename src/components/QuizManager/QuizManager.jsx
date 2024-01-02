@@ -16,6 +16,18 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 48px;
+
+  @keyframes zoom-in {
+    from {
+      transform: scale(0);
+    }
+    to {
+      opacity: scale(1);
+    }
+  }
+
+  animation-name: zoom-in;
+  animation-duration: 500ms;
 `;
 
 const StProgessContainer = styled.div`
