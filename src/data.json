@@ -42,5 +42,38 @@
       "D": "For the elusive alien civilization that will one day stumble upon our code and either be impressed or highly confused."
     },
     "correctAnswer": "C"
+  },
+  {
+    "id": 5,
+    "question": "What is the minimum set of attributes required for data binding a text input in React?",
+    "choices": {
+      "A": "value",
+      "B": "onChange",
+      "C": "value and onChange",
+      "D": "Rubbing the text input three times and whispering 'Reacto Patronum' for magical data binding."
+    },
+    "correctAnswer": "C"
+  },
+  {
+    "id": 6,
+    "question": "What is the best way to handle form submission?",
+    "choices": {
+      "A": "Use the onSubmit attribute on the form element.",
+      "B": "Use the onClick attribute on the submit button.",
+      "C": "Use the onSubmit attribute on the submit button",
+      "D": "Hire a carrier pigeon to deliver the form data directly to the server, ensure it has a good GPS and doesn't get distracted by shiny objects."
+    },
+    "correctAnswer": "A"
+  },
+  {
+    "id": 7,
+    "question": "When should you use props and when should you use state in a React component?",
+    "choices": {
+      "A": "Use state when the component doesn't change it over time (read-only), use prop when the component needs to change it over time.",
+      "B": "Use a prop when the component doesn't change it over time (read-only), use state when the component needs to change it over time.",
+      "C": "It's a matter of personal preference.",
+      "D": "Flip a coin - heads for props, tails for state. Just don't blame us if it lands on its side!"
+    },
+    "correctAnswer": "B"
   }
 ]
