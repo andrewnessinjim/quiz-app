@@ -48,6 +48,14 @@ function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
   // but since we need negative translate values, max does the job instead.
   const translateXAmount = `max(${translateXWhenCardIsLessThanMaxWidth},${translateXWhenCardIsMaxWidth})`;
 
+  function isFirstQuestion(){
+    return currentQuestion === 0 ;
+  }
+
+  function isLastQuestion() {
+    return currentQuestion === questionsData.length - 1;
+  }
+
   return (
     <Wrapper>
       <CardsScroller>
@@ -65,15 +73,15 @@ function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
       </CardsScroller>
       <NavContainer>
         <StButton
-          $style="secondary"
-          disabled={currentQuestion === 0 || disableNav}
+          $variant="secondary"
+          disabled={isFirstQuestion() || disableNav}
           onClick={() => setCurrentQuestion(currentQuestion - 1)}
         >
           Previous
         </StButton>
         <StButton
-          $style="secondary"
-          disabled={currentQuestion === questionsData.length - 1 || disableNav}
+          $variant="secondary"
+          disabled={isLastQuestion() || disableNav}
           onClick={() => setCurrentQuestion(currentQuestion + 1)}
         >
           Next

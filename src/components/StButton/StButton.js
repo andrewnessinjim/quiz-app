@@ -21,8 +21,8 @@ const StButton = styled.button`
   width: 124px;
   color: ${({ theme }) => theme.colors.mauve12};
   border-radius: 10px;
-  border: ${({ theme, $style }) => getBorder($style, theme)};
-  background: ${({ theme, $style }) => getBackground($style, theme)};
+  border: ${({ theme, $variant }) => getBorder($variant, theme)};
+  background: ${({ theme, $variant }) => getBackground($variant, theme)};
   cursor: pointer;
 
   &[disabled] {
