@@ -89,14 +89,19 @@ function AnswerPicker({ questionIndex, question, answers, onAnswerPick }) {
           {Object.keys(answers).map((answerKey) => {
             return (
               <AnimatedRadioItemContainer
+                layout={true}
                 key={answerKey}
                 whileHover={{
                   marginRight: answerKey === pickedAnswer ? "0px" : "16px",
                   paddingRight: answerKey === pickedAnswer ? "32px" : "16px"
                 }}
-                animate={{
+
+                style={{
                   marginRight: answerKey === pickedAnswer ? "0px" :"32px",
                   paddingRight: answerKey === pickedAnswer ? "32px" :"0px",
+                }}
+
+                animate={{
                   borderTopRightRadius: answerKey === pickedAnswer ? "0px" :"16px",
                   borderBottomRightRadius: answerKey === pickedAnswer ? "0px" :"16px"
                 }}
