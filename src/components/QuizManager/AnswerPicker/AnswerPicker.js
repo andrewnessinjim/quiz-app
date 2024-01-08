@@ -1,16 +1,13 @@
+import React from "react";
 import PropTypes from "prop-types";
 
-import * as RadioGroup from "@radix-ui/react-radio-group";
 import { styled } from "styled-components";
-import React from "react";
+import * as RadioGroup from "@radix-ui/react-radio-group";
+
+import { motion } from "framer-motion";
 
 const StWrapper = styled.section`
   --left-align-padding: 32px;
-  --hovered-slide-amount: 24px;
-  --selected-slide-amount: 16px;
-  --total-slide-amount: calc(
-    var(--hovered-slide-amount) + var(--selected-slide-amount)
-  );
   width: var(--question-card-width);
   max-width: var(--question-card-max-width);
   border: 4px solid ${(p) => p.theme.colors.plum7};
@@ -40,63 +37,81 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
   border: none;
   text-align: start;
   padding: 0;
-
   display: block;
   margin: 0;
+  
   padding-top: 8px;
   padding-bottom: 8px;
-  padding-left: calc(var(--left-align-padding) + var(--total-slide-amount));
-  transform: translateX(calc(-1 * var(--total-slide-amount)));
-  background: ${(p) => p.theme.colors.mauve4};
-  border-top-right-radius: 16px;
-  border-bottom-right-radius: 16px;
-  transition: 250ms transform;
+  padding-left: var(--left-align-padding);
+  width: 100%;
+  
   cursor: pointer;
   color: ${(p) => p.theme.colors.plum12};
-  transition: 150ms background ease-in, 150ms transform ease-in,
-    250ms border-radius ease-in;
+  `;
+
+const StLabel = styled.label`
+  cursor: pointer;
+  `;
+
+const AnimatedRadioItemContainer = styled(motion.div)`
+  background: ${(p) => p.theme.colors.mauve4};
+  transition: 150ms background ease-in;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  margin-right: 32px;
 
   @media (hover: hover) {
     &:hover {
-      transform: translateX(
-        calc((-1 * var(--total-slide-amount)) + var(--hovered-slide-amount))
-      );
       background: ${(p) => p.theme.colors.plum7};
     }
   }
 
-  &[data-state="checked"] {
-    transform: translateX(0px);
+  &:has(${StRadioGroupItem}[data-state="checked"]) {
     background: ${(p) => p.theme.colors.plum7};
-    border-top-right-radius: initial;
-    border-bottom-right-radius: initial;
   }
 `;
 
-const StLabel = styled.label`
-  cursor: pointer;
-`;
-
 function AnswerPicker({ questionIndex, question, answers, onAnswerPick }) {
+  const [pickedAnswer, setPickedAnswer] = React.useState("")
   const choiceRadioPrefixId = React.useId();
+
   return (
     <StWrapper>
       <StQuestion>{question}</StQuestion>
       <form>
         <StAnswersRadioGroupRoot
-          onValueChange={(selectedValue) => onAnswerPick(questionIndex, selectedValue)}
+          value={pickedAnswer}
+          onValueChange={(pickedValue) => {
+            setPickedAnswer(pickedValue)
+            onAnswerPick(questionIndex, pickedValue);
+          }}
         >
           {Object.keys(answers).map((answerKey) => {
             return (
-              <StRadioGroupItem
-                id={`${choiceRadioPrefixId}-${answerKey}`}
-                value={answerKey}
+              <AnimatedRadioItemContainer
                 key={answerKey}
+                whileHover={{
+                  marginRight: answerKey === pickedAnswer ? "0px" : "16px",
+                  paddingRight: answerKey === pickedAnswer ? "32px" : "16px"
+                }}
+                animate={{
+                  marginRight: answerKey === pickedAnswer ? "0px" :"32px",
+                  paddingRight: answerKey === pickedAnswer ? "32px" :"0px",
+                  borderTopRightRadius: answerKey === pickedAnswer ? "0px" :"16px",
+                  borderBottomRightRadius: answerKey === pickedAnswer ? "0px" :"16px"
+                }}
               >
-                <StLabel htmlFor={`${choiceRadioPrefixId}-${answerKey}`}>
-                  {answers[answerKey]}
-                </StLabel>
-              </StRadioGroupItem>
+                <motion.div layout="position">
+                  <StRadioGroupItem
+                    id={`${choiceRadioPrefixId}-${answerKey}`}
+                    value={answerKey}
+                  >
+                    <StLabel htmlFor={`${choiceRadioPrefixId}-${answerKey}`}>
+                      {answers[answerKey]}
+                    </StLabel>
+                  </StRadioGroupItem>
+                </motion.div>
+              </AnimatedRadioItemContainer>
             );
           })}
         </StAnswersRadioGroupRoot>
