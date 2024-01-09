@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import { styled } from "styled-components";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 
-import { motion } from "framer-motion";
-
 const StWrapper = styled.section`
   --left-align-padding: 32px;
   width: var(--question-card-width);
@@ -24,6 +22,10 @@ const StQuestion = styled.p`
 `;
 
 const StAnswersRadioGroupRoot = styled(RadioGroup.Root)`
+  --checked-item-translateX: 0px;
+  --unchecked-item-translateX: -32px;
+  --hovered-item-translateX: -16px;
+
   padding: 16px 0;
   background: ${(p) => p.theme.colors.mauve3};
   display: flex;
@@ -38,6 +40,7 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
   text-align: start;
   padding: 0;
   display: block;
+  position: relative;
   margin: 0;
   
   padding-top: 8px;
@@ -51,23 +54,34 @@ const StRadioGroupItem = styled(RadioGroup.Item)`
 
 const StLabel = styled.label`
   cursor: pointer;
+  position: relative;
+  display: block;
+  width: calc(100% - var(--left-align-padding) + var(--unchecked-item-translateX));
   `;
 
-const AnimatedRadioItemContainer = styled(motion.div)`
+const StRadioItemBackground = styled.span`
+  position: absolute;
   background: ${(p) => p.theme.colors.mauve4};
-  transition: 150ms background ease-in;
+  inset: 0;
+
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
-  margin-right: 32px;
 
-  @media (hover: hover) {
-    &:hover {
-      background: ${(p) => p.theme.colors.plum7};
-    }
+  transform: translateX(var(--unchecked-item-translateX));
+
+  transition: 150ms background ease-in, 150ms transform ease-in, 500ms border-radius ease-in;
+
+  ${StRadioGroupItem}:hover & {
+    background: ${(p) => p.theme.colors.plum7};
+    transform: translateX(var(--hovered-item-translateX));
   }
 
-  &:has(${StRadioGroupItem}[data-state="checked"]) {
+  ${StRadioGroupItem}[data-state="checked"] & {
     background: ${(p) => p.theme.colors.plum7};
+    transform: translateX(var(--checked-item-translateX));
+
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
 `;
 
@@ -88,35 +102,16 @@ function AnswerPicker({ questionIndex, question, answers, onAnswerPick }) {
         >
           {Object.keys(answers).map((answerKey) => {
             return (
-              <AnimatedRadioItemContainer
-                layout={true}
+              <StRadioGroupItem
                 key={answerKey}
-                whileHover={{
-                  marginRight: answerKey === pickedAnswer ? "0px" : "16px",
-                  paddingRight: answerKey === pickedAnswer ? "32px" : "16px"
-                }}
-
-                style={{
-                  marginRight: answerKey === pickedAnswer ? "0px" :"32px",
-                  paddingRight: answerKey === pickedAnswer ? "32px" :"0px",
-                }}
-
-                animate={{
-                  borderTopRightRadius: answerKey === pickedAnswer ? "0px" :"16px",
-                  borderBottomRightRadius: answerKey === pickedAnswer ? "0px" :"16px"
-                }}
+                id={`${choiceRadioPrefixId}-${answerKey}`}
+                value={answerKey}
               >
-                <motion.div layout="position">
-                  <StRadioGroupItem
-                    id={`${choiceRadioPrefixId}-${answerKey}`}
-                    value={answerKey}
-                  >
-                    <StLabel htmlFor={`${choiceRadioPrefixId}-${answerKey}`}>
-                      {answers[answerKey]}
-                    </StLabel>
-                  </StRadioGroupItem>
-                </motion.div>
-              </AnimatedRadioItemContainer>
+                <StRadioItemBackground />
+                <StLabel htmlFor={`${choiceRadioPrefixId}-${answerKey}`}>
+                  {answers[answerKey]}
+                </StLabel>
+              </StRadioGroupItem>
             );
           })}
         </StAnswersRadioGroupRoot>
