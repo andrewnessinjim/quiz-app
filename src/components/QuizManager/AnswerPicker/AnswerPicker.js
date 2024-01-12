@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import { styled } from "styled-components";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import StRadioGroupItem from "./StRadioGroupItem";
+import { motion } from "framer-motion";
 
-const StWrapper = styled.section`
+const StWrapper = styled(motion.section)`
     --left-align-padding: 32px;
     width: var(--question-card-width);
     max-width: var(--question-card-max-width);
@@ -31,11 +32,12 @@ const StAnswersRadioGroupRoot = styled(RadioGroup.Root)`
     overflow-x: clip;
 `;
 
-function AnswerPicker({ questionIndex, question, answers, onAnswerPick }) {
+function AnswerPicker({ questionIndex, question, answers, onAnswerPick, animate }) {
     const [pickedAnswerKey, setPickedAnswerKey] = React.useState("")
 
     return (
-        <StWrapper>
+        <StWrapper
+            animate={animate}>
             <StQuestion>{question}</StQuestion>
             <form>
                 <StAnswersRadioGroupRoot
@@ -67,6 +69,7 @@ AnswerPicker.propTypes = {
     question: PropTypes.string,
     answers: PropTypes.object,
     onAnswerPick: PropTypes.func,
+    animate: PropTypes.object
 };
 
 export default AnswerPicker;

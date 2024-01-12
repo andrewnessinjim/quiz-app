@@ -21,8 +21,6 @@ const CardsScroller = styled.section`
 const CardsContainer = styled.section`
   display: flex;
   width: max-content;
-  transform: translateX(var(--translateXAmount));
-  transition: 500ms transform cubic-bezier(.6,.32,0,.86);
   align-items: start;
   --gap-between-cards: 128px;
   gap: var(--gap-between-cards);
@@ -36,17 +34,6 @@ const NavContainer = styled.div`
 
 function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
-  // API call or DB call <-- data
-  const translateXWhenCardIsLessThanMaxWidth = `calc(${
-    currentQuestion * -1
-  }  * (var(--question-card-width) + var(--gap-between-cards)))`;
-  const translateXWhenCardIsMaxWidth = `calc(${
-    currentQuestion * -1
-  }  * (var(--question-card-max-width) + var(--gap-between-cards)))`;
-
-  // Actual translate amount should be the minimum of these two,
-  // but since we need negative translate values, max does the job instead.
-  const translateXAmount = `max(${translateXWhenCardIsLessThanMaxWidth},${translateXWhenCardIsMaxWidth})`;
 
   function isFirstQuestion(){
     return currentQuestion === 0 ;
@@ -59,7 +46,7 @@ function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
   return (
     <Wrapper>
       <CardsScroller>
-        <CardsContainer style={{ "--translateXAmount": translateXAmount }}>
+        <CardsContainer>
           {questionsData.map((questionData, questionIndex) => (
             <AnswerPicker
               key={questionData.id}
@@ -67,6 +54,9 @@ function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
               answers={questionData.choices}
               questionIndex={questionIndex}
               onAnswerPick={onAnswerPick}
+              animate={{
+                x : `calc(${currentQuestion} *(-100% - var(--gap-between-cards)))`
+              }}
             />
           ))}
         </CardsContainer>
