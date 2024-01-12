@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {styled} from "styled-components";
+import {styled, useTheme} from "styled-components";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import { motion } from "framer-motion";
 
@@ -33,42 +33,44 @@ const StLabel = styled.label`
 
 const StRadioItemBackground = styled(motion.span)`
     position: absolute;
-    background: ${(p) => p.theme.colors.mauve4};
+    background: var(--background);
     inset: 0;
 
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
 
     transition: 150ms background ease-in,  150ms border-radius 250ms ease-in;
-
-    ${Wrapper}:hover & {
-        background: ${(p) => p.theme.colors.plum7};
-    }
-
-    ${Wrapper}[data-state="checked"] & {
-    background: ${(p) => p.theme.colors.plum7};
-    /* transform: translateX(var(--checked-item-translateX)); */
-
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    }
 `;
 
 function StRadioGroupItem({answerKey, children, checked}) {
+    const theme = useTheme();
     const choiceRadioPrefixId = React.useId();
     const [hovering, setHovering] = React.useState(false);
 
     function translateX(){
         if(checked) return "0px";
 
-        return hovering? "-16px": "-32px"
+        return hovering? "-16px": "-32px";
     }
+
+    function background() {
+        if(checked || hovering) {
+            return theme.colors.plum7
+        }
+
+        return theme.colors.mauve4;
+    }
+
     return (
         <Wrapper
             id={`${choiceRadioPrefixId}-${answerKey}`}
             value={answerKey}
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
+            style={{
+                "--background": background(),
+                "--border-radius": checked? "0px" : "16px"
+            }}
         >
             <StRadioItemBackground 
                 animate={{
@@ -76,7 +78,8 @@ function StRadioGroupItem({answerKey, children, checked}) {
                 }}
                 transition={{
                     type:"spring",
-                    duration:0.5,
+                    damping: 40,
+                    stiffness: 300
                 }}
                 />
             <StLabel htmlFor={`${choiceRadioPrefixId}-${answerKey}`}>
