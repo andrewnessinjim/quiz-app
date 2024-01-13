@@ -54,9 +54,7 @@ function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
               answers={questionData.choices}
               questionIndex={questionIndex}
               onAnswerPick={onAnswerPick}
-              animate={{
-                x : `calc(${currentQuestion} *(-100% - var(--gap-between-cards)))`
-              }}
+              translateX={`calc(${currentQuestion} *(-100% - var(--gap-between-cards)))`}
             />
           ))}
         </CardsContainer>

@@ -32,12 +32,14 @@ const StAnswersRadioGroupRoot = styled(RadioGroup.Root)`
     overflow-x: clip;
 `;
 
-function AnswerPicker({ questionIndex, question, answers, onAnswerPick, animate }) {
+function AnswerPicker({ questionIndex, question, answers, onAnswerPick, translateX }) {
     const [pickedAnswerKey, setPickedAnswerKey] = React.useState("")
 
     return (
         <StWrapper
-            animate={animate}>
+            animate={{
+                x: translateX
+            }}>
             <StQuestion>{question}</StQuestion>
             <form>
                 <StAnswersRadioGroupRoot
@@ -69,7 +71,7 @@ AnswerPicker.propTypes = {
     question: PropTypes.string,
     answers: PropTypes.object,
     onAnswerPick: PropTypes.func,
-    animate: PropTypes.object
+    translateX: PropTypes.string
 };
 
 export default AnswerPicker;
