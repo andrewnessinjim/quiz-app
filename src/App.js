@@ -3,14 +3,15 @@ import AppThemeProvider from "./components/AppThemeProvider";
 import GlobalStyles from "./GlobalStyles";
 import React from "react";
 import Header from "./components/Header";
-import ResetController from "./components/ResetController/ResetController";
 import QuizManager from "./components/QuizManager";
+import useReset from "./hooks/useReset";
 
 export default function App() {
+  const [resetKey, handleReset] = useReset()
   return (
     <AppThemeProvider>
       <Header />
-      <ResetController ControlledComponent={QuizManager}/>
+      <QuizManager key={resetKey} onReset={handleReset} />
       <GlobalStyles />
     </AppThemeProvider>
   );
