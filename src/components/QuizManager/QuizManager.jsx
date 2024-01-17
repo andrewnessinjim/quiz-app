@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 48px;
+  gap:clamp(1.5rem, 3.6vw + 0.6rem, 2rem);
 
   @keyframes zoom-in {
     from {

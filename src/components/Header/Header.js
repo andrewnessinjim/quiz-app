@@ -5,8 +5,8 @@ import ThemeToggle from "../ThemeToggle";
 
 const Wrapper = styled.header`
   ${SiteWidthWrapper}
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding-top: clamp(0.75rem, 1.8vw + 0.3rem, 1rem);
+  padding-bottom: clamp(0.75rem, 1.8vw + 0.3rem, 1rem);
 
   display: flex;
   flex-direction: row-reverse;
