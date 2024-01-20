@@ -9,13 +9,14 @@ const Wrapper = styled.header`
   padding-bottom: clamp(0.75rem, 1.8vw + 0.3rem, 1rem);
 
   display: flex;
+  width: 100%;
   flex-direction: row-reverse;
 `;
 
 function Header() {
   return (
     <Wrapper>
-      <ThemeToggle />
+      <ThemeToggle/>
     </Wrapper>
   );
 }

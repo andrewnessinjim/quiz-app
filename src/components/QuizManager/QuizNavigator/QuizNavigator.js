@@ -12,64 +12,55 @@ const Wrapper = styled.section`
   flex-direction: column;
 `;
 
-const CardsScroller = styled.section`
-  width: var(--question-card-width);
-  max-width: var(--question-card-max-width);
-  overflow-x: clip;
-`;
-
-const CardsContainer = styled.section`
-  display: flex;
-  width: max-content;
-  align-items: start;
-  --gap-between-cards: 128px;
-  gap: var(--gap-between-cards);
-`;
-
 const NavContainer = styled.div`
-  margin-top: 16px;
+  margin-top: auto;
   display: flex;
   gap: 8px;
 `;
 
-function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
+function QuizNavigator({ questionsData, onAnswerPick, disablePicking, style }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  const [mounted, setMounted] = React.useState(false);
 
-  function isFirstQuestion(){
-    return currentQuestion === 0 ;
+  React.useEffect(() => {
+    setMounted(true);
+
+    return () => setMounted(false);
+  }, []);
+
+  function isFirstQuestion() {
+    return currentQuestion === 0;
   }
 
   function isLastQuestion() {
     return currentQuestion === questionsData.length - 1;
   }
 
+  const currentQuestionData = questionsData[currentQuestion];
+
   return (
-    <Wrapper>
-      <CardsScroller>
-        <CardsContainer>
-          {questionsData.map((questionData, questionIndex) => (
-            <AnswerPicker
-              key={questionData.id}
-              question={questionData.question}
-              answers={questionData.choices}
-              questionIndex={questionIndex}
-              onAnswerPick={onAnswerPick}
-              translateX={`calc(${currentQuestion} *(-100% - var(--gap-between-cards)))`}
-            />
-          ))}
-        </CardsContainer>
-      </CardsScroller>
+    <Wrapper
+      style={style}>
+        <AnswerPicker
+          key={currentQuestionData.id}
+          question={currentQuestionData.question}
+          answers={currentQuestionData.choices}
+          questionIndex={currentQuestion}
+          onAnswerPick={onAnswerPick}
+          disablePicking={disablePicking}
+          disableInitialAnimation={!mounted}
+        />
       <NavContainer>
         <StButton
           $variant="secondary"
-          disabled={isFirstQuestion() || disableNav}
+          disabled={isFirstQuestion()}
           onClick={() => setCurrentQuestion(currentQuestion - 1)}
         >
           Previous
         </StButton>
         <StButton
           $variant="secondary"
-          disabled={isLastQuestion() || disableNav}
+          disabled={isLastQuestion()}
           onClick={() => setCurrentQuestion(currentQuestion + 1)}
         >
           Next
@@ -82,7 +73,8 @@ function QuizNavigator({ questionsData, onAnswerPick, disableNav }) {
 QuizNavigator.propTypes = {
   questionsData: PropTypes.arrayOf(PropTypes.object),
   onAnswerPick: PropTypes.func,
-  disableNav: PropTypes.bool
+  disablePicking: PropTypes.bool,
+  style: PropTypes.func
 };
 
 export default QuizNavigator;

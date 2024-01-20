@@ -13,6 +13,10 @@ const StWrapper = styled(motion.section)`
     border: 4px solid ${(p) => p.theme.colors.plum7};
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-bottom: 16px;
 `;
 
 const StQuestion = styled.p`
@@ -21,6 +25,12 @@ const StQuestion = styled.p`
     color: ${(p) => p.theme.colors.plum12};
     padding: 24px 16px;
     padding-left: var(--left-align-padding);
+`;
+
+const StForm = styled.form`
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
 `;
 
 const StAnswersRadioGroupRoot = styled(RadioGroup.Root)`
@@ -32,17 +42,21 @@ const StAnswersRadioGroupRoot = styled(RadioGroup.Root)`
     overflow-x: clip;
 `;
 
-function AnswerPicker({ questionIndex, question, answers, onAnswerPick, translateX }) {
+function AnswerPicker({ questionIndex, question, answers, onAnswerPick, disablePicking, disableInitialAnimation }) {
     const [pickedAnswerKey, setPickedAnswerKey] = React.useState("")
 
     return (
         <StWrapper
+            initial={{
+                x: disableInitialAnimation ? "0%" : "-200%"
+            }}
             animate={{
-                x: translateX
+                x: "0%"
             }}>
             <StQuestion>{question}</StQuestion>
-            <form>
+            <StForm>
                 <StAnswersRadioGroupRoot
+                    disabled={disablePicking}
                     value={pickedAnswerKey}
                     onValueChange={(pickedValue) => {
                         setPickedAnswerKey(pickedValue)
@@ -61,7 +75,7 @@ function AnswerPicker({ questionIndex, question, answers, onAnswerPick, translat
                         );
                     })}
                 </StAnswersRadioGroupRoot>
-            </form>
+            </StForm>
         </StWrapper>
     );
 }
@@ -71,7 +85,8 @@ AnswerPicker.propTypes = {
     question: PropTypes.string,
     answers: PropTypes.object,
     onAnswerPick: PropTypes.func,
-    translateX: PropTypes.string
+    disablePicking: PropTypes.bool,
+    disableInitialAnimation: PropTypes.bool
 };
 
 export default AnswerPicker;

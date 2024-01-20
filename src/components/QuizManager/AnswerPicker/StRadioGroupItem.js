@@ -73,6 +73,7 @@ function StRadioGroupItem({answerKey, children, checked}) {
             }}
         >
             <StRadioItemBackground 
+                initial={false}
                 animate={{
                     x: translateX()
                 }}
