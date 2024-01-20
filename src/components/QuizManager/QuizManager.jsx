@@ -3,11 +3,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import QuizNavigator from "./QuizNavigator";
+import QuizCard from "../QuizCard";
 import questionsData from "../../data";
 import SiteWidthWrapper from "../SiteWidthWrapper";
 import ActionBar from "./ActionBar";
 import StatusBar from "./StatusBar";
+import QuizNavigator from "../QuizNavigator/QuizNavigator";
 
 const Wrapper = styled.div`
   ${SiteWidthWrapper};
@@ -45,6 +46,7 @@ function QuizManager({ onReset }) {
 
   const isReadyForSubmission = numQuestions === providedAnswersCount;
 
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
   function onAnswerPick(questionIndex, selectedAnswer) {
     const nextAnswers = [...providedAnswers];
     nextAnswers[questionIndex] = selectedAnswer;
@@ -66,8 +68,9 @@ function QuizManager({ onReset }) {
   
   return (
     <Wrapper>
-      <QuizNavigator
-        questionsData={questionsData}
+      <QuizCard
+        questionData={questionsData[currentQuestion]}
+        questionIndex={currentQuestion}
         onAnswerPick={onAnswerPick}
         disablePicking={quizSubmitted}
         style={{
@@ -83,6 +86,10 @@ function QuizManager({ onReset }) {
         showScore={quizSubmitted}
         score={score}
       />
+      <QuizNavigator 
+        currentQuestion={currentQuestion}
+        setCurrentQuestion={setCurrentQuestion}
+        totalQuestions={numQuestions}/>
       <ActionBar
         showSubmitButton={isReadyForSubmission && !quizSubmitted}
         showResetButton={quizSubmitted}
