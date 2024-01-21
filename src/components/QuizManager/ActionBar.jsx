@@ -3,7 +3,8 @@ import styled from "styled-components";
 import StButton from "../StButton/StButton";
 
 const Wrapper = styled.div`
-    height: 40px
+    height: 40px;
+    flex-shrink: 0;
 `;
 
 const ScaleUpButton = styled(StButton)`
