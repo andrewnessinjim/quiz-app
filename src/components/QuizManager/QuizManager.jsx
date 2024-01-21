@@ -40,13 +40,12 @@ function QuizManager({ onReset }) {
   );
 
   const [quizSubmitted, setQuizSubmitted] = React.useState(false);
+  const [score, setScore] = React.useState(0);
+  const [currentQuestion, setCurrentQuestion] = React.useState(0);
 
   const providedAnswersCount = providedAnswers.filter((answer) => answer !== null).length;
-  const [score, setScore] = React.useState(0);
-
   const isReadyForSubmission = numQuestions === providedAnswersCount;
-
-  const [currentQuestion, setCurrentQuestion] = React.useState(0);
+  
   function onAnswerPick(questionIndex, selectedAnswer) {
     const nextAnswers = [...providedAnswers];
     nextAnswers[questionIndex] = selectedAnswer;
