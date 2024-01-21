@@ -28,8 +28,6 @@ const StQuestion = styled.p`
 `;
 
 const StForm = styled.form`
-    flex-grow: 1;
-    min-height: 0;
     overflow-y: auto;
 `;
 
