@@ -45,7 +45,9 @@ function QuizManager({ onReset }) {
 
   const providedAnswersCount = providedAnswers.filter((answer) => answer !== null).length;
   const isReadyForSubmission = numQuestions === providedAnswersCount;
-  
+
+  //Valid values: from-left, from-right
+  const [cardAnimationDirection, setCardAnimationDirection] = React.useState("from-left")
   function onAnswerPick(questionIndex, selectedAnswer) {
     const nextAnswers = [...providedAnswers];
     nextAnswers[questionIndex] = selectedAnswer;
@@ -72,6 +74,7 @@ function QuizManager({ onReset }) {
         questionIndex={currentQuestion}
         onAnswerPick={onAnswerPick}
         disablePicking={quizSubmitted}
+        cardAnimationDirection={cardAnimationDirection}
         style={{
           flexGrow: 1,
           minHeight: 0
@@ -88,7 +91,9 @@ function QuizManager({ onReset }) {
       <QuizNavigator 
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
-        totalQuestions={numQuestions}/>
+        totalQuestions={numQuestions}
+        cardAnimationDirection={cardAnimationDirection}
+        setCardAnimationDirection={setCardAnimationDirection}/>
       <ActionBar
         showSubmitButton={isReadyForSubmission && !quizSubmitted}
         showResetButton={quizSubmitted}

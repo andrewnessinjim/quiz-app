@@ -40,13 +40,16 @@ const StAnswersRadioGroupRoot = styled(RadioGroup.Root)`
     overflow-x: clip;
 `;
 
-function AnswerPicker({ questionIndex, question, answers, onAnswerPick, disablePicking, disableInitialAnimation }) {
+function AnswerPicker({ questionIndex, question, answers, onAnswerPick, disablePicking, disableInitialAnimation, cardAnimationDirection }) {
     const [pickedAnswerKey, setPickedAnswerKey] = React.useState("")
 
+    function initialX() {
+        return cardAnimationDirection === "from-right" ? "200%" : "-200%";
+    }
     return (
         <StWrapper
             initial={{
-                x: disableInitialAnimation ? "0%" : "-200%"
+                x: disableInitialAnimation ? "0%" : initialX()
             }}
             animate={{
                 x: "0%"
@@ -84,7 +87,8 @@ AnswerPicker.propTypes = {
     answers: PropTypes.object,
     onAnswerPick: PropTypes.func,
     disablePicking: PropTypes.bool,
-    disableInitialAnimation: PropTypes.bool
+    disableInitialAnimation: PropTypes.bool,
+    cardAnimationDirection: PropTypes.oneOf(["from-right", "from-left"]),
 };
 
 export default AnswerPicker;

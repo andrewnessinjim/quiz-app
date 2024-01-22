@@ -13,7 +13,7 @@ const Wrapper = styled.section`
 
 
 
-function QuizCard({ questionData, questionIndex, onAnswerPick, disablePicking, style }) {
+function QuizCard({ questionData, questionIndex, onAnswerPick, disablePicking, cardAnimationDirection, style }) {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -32,6 +32,7 @@ function QuizCard({ questionData, questionIndex, onAnswerPick, disablePicking, s
           questionIndex={questionIndex}
           onAnswerPick={onAnswerPick}
           disablePicking={disablePicking}
+          cardAnimationDirection={cardAnimationDirection}
           disableInitialAnimation={!mounted}
         />
     </Wrapper>
@@ -43,7 +44,8 @@ QuizCard.propTypes = {
   questionIndex: PropTypes.number,
   onAnswerPick: PropTypes.func,
   disablePicking: PropTypes.bool,
-  style: PropTypes.object
+  cardAnimationDirection: PropTypes.oneOf(["from-right", "from-left"]),
+  style: PropTypes.object,
 };
 
 export default QuizCard;

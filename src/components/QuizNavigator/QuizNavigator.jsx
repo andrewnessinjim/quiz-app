@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   gap: 8px;
 `;
 
-function QuizNavigator({currentQuestion, setCurrentQuestion, totalQuestions}) {
+function QuizNavigator({currentQuestion, setCurrentQuestion, totalQuestions, setCardAnimationDirection}) {
     function isFirstQuestion() {
         return currentQuestion === 0;
       }
@@ -23,14 +23,20 @@ function QuizNavigator({currentQuestion, setCurrentQuestion, totalQuestions}) {
             <StButton
                 $variant="secondary"
                 disabled={isFirstQuestion()}
-                onClick={() => setCurrentQuestion(currentQuestion - 1)}
+                onClick={() => {
+                    setCurrentQuestion(currentQuestion - 1);
+                    setCardAnimationDirection("from-left");
+                }}
             >
                 Previous
             </StButton>
             <StButton
                 $variant="secondary"
                 disabled={isLastQuestion()}
-                onClick={() => setCurrentQuestion(currentQuestion + 1)}
+                onClick={() => {
+                    setCurrentQuestion(currentQuestion + 1);
+                    setCardAnimationDirection("from-right");
+                }}
             >
                 Next
             </StButton>
@@ -41,7 +47,8 @@ function QuizNavigator({currentQuestion, setCurrentQuestion, totalQuestions}) {
 QuizNavigator.propTypes = {
     currentQuestion: PropTypes.number.isRequired,
     setCurrentQuestion: PropTypes.func.isRequired,
-    totalQuestions: PropTypes.number.isRequired
+    totalQuestions: PropTypes.number.isRequired,
+    setCardAnimationDirection: PropTypes.func
 }
 
 export default QuizNavigator;
